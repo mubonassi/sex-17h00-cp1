@@ -29,6 +29,7 @@ print("-"*60)
 #Linha 0, coluna "Nome"
 #loc[x,y] -> X: a linha; Y: a coluna
 print(tabela.loc[2,"Nome"])
+print("-"*60)
 
 #Alterar e adicionar valores
 #Alterando
@@ -37,12 +38,15 @@ tabela.loc[3,"Nome"] = "Jorisvaldo"
 #Adicionar uma nova linha
 tabela.loc[4] = ["Roberto Carlos",87]
 
+#[a,b,c,d] [0,1,2,3]
+#len = 4
 #Adicionando na PRÓXIMA linha disponível
 #Utilizando a função len()
 tabela.loc[len(tabela)] = ["Próximo Nome",300]
 
 #Deletando uma linha da tabela
 #Utilizando drop()
-tabela = tabela.drop(2)
+#reset_index(drop=True) -> reorganiza os indices da tabela CASO o drop tenha sido concluido com sucesso
+tabela = tabela.drop(2).reset_index(drop=True)
 
 print(tabela)
