@@ -59,6 +59,29 @@ while True:
                 print("-- Alterado com Sucesso --")
             else:
                 print("!! Campo não encontrado !!")
+        case "9":
+            campo = input("Digite qual o campo deseja alterar do produto: ")
+            valor = input("Digite o valor do campo que deseja alterar: ")
+            valorNovo = input("Digite qual valor à se alterar: ")
+            
+            if campo in ["Produto","Categoria","Quantidade","Valor"]:
+                if campo == "Quantidade":
+                    valor = int(valor)
+                    valorNovo = int(valorNovo)
+                elif campo == "Valor":
+                    valor = float(valor)
+                    valorNovo = float(valorNovo)
+                tabela.loc[tabela[campo] == valor,campo] = valorNovo
+            else:
+                print("!! Campo não Encontrado !!")
+        case "10":
+            campo = input("Digite aqui o campo para realizar a pesquisa: ")
+            valor = input("Digite aqui o valor para realizar a pesquisa: ")
+            
+            if campo in ["Produto","Categoria","Quantidade","Valor"]:
+                if campo in ["Quantidade","Valor"]:
+                    valor = float(valor)
+                tabela = tabela.drop(tabela[tabela[campo] == valor].index).reset_index(drop=True)
         case "0":
             break
     input("Aperte enter para continuar...")

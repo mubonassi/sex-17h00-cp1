@@ -1,12 +1,31 @@
 Produto,Categoria,Quantidade,Valor
-ccccccccc,Computador,3,4500.0
-Monitor,Monitor,5,1200.0
-Teclado,Periférico,12,180.0
-Mouse,Periférico,20,90.0
-Headset,Áudio,8,250.0
-Webcam,Câmera,6,320.0
-Notebook,Computador,2,4500.0
-Monitor,Monitor,4,1200.0
-Mouse,Periférico,15,90.0
-teste,testeaaa,100,2999.99
-aaaaa,bbbbb,33,19.99
+Notebook,Computador,3,4500
+Monitor,Monitor,5,1200
+Teclado,Periférico,12,180
+Mouse,Periférico,20,90
+Headset,Áudio,8,250
+Webcam,Câmera,6,320
+Notebook,Computador,2,4500
+Monitor,Monitor,4,1200
+Mouse,Periférico,15,90
+Teclado,Periférico,10,180
+Impressora,Impressão,7,850
+Tablet,Computador,9,1500
+Celular,Computador,6,2800
+Microfone,Áudio,5,450
+Caixa de Som,Áudio,8,300
+SSD,Armazenamento,11,500
+HD Externo,Armazenamento,6,420
+Pen Drive,Armazenamento,25,80
+Roteador,Rede,10,250
+Switch,Rede,4,600
+Notebook,Computador,5,5200
+Monitor,Monitor,8,1500
+Mouse,Periférico,18,120
+Teclado,Periférico,14,220
+Headset,Áudio,9,350
+Webcam,Câmera,7,400
+Impressora,Impressão,3,950
+Tablet,Computador,6,1800
+SSD,Armazenamento,12,650
+Roteador,Rede,8,280
