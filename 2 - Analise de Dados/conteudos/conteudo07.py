@@ -15,20 +15,11 @@ while True:
             campo = input("> Digite o nome do campo para realizar o relatório: ")
             if campo in ["Quantidade","Valor"]:
                 plt.figure(figsize=(12,6)) #media em polegadas o x y
-                plt.bar(
-                    tabela["Produto"],
-                    tabela[campo],
-                    color="purple",
-                    width=0.5,
-                    edgecolor="black",
-                    linewidth=2)
+                plt.bar(tabela["Produto"],tabela[campo],color="purple",width=0.5,edgecolor="black",linewidth=2)
                 
                 plt.grid(True)
-                plt.grid(
-                    axis="y",
-                    color="red",
-                    linestyle="-" #-- - : -.
-                )
+                plt.grid(axis="y",color="red",linestyle="-")
+                plt.grid(axis="x",linestyle="none")
                 
                 plt.title(f"{campo} de Produtos")
                 plt.xlabel("Produtos")
