@@ -2,16 +2,15 @@ import pandas as pd
 
 dados = {
     "Produto": [
-        "Notebook","Monitor","Teclado","Mouse",
-        "Headset","Webcam","Notebook","Monitor",
-        "Mouse","Teclado","Impressora","Tablet",
-        "Celular","Microfone","Caixa de Som",
-        "SSD","HD Externo","Pen Drive","Roteador","Switch",
-        "Notebook","Monitor","Mouse","Teclado",
-        "Headset","Webcam","Impressora","Tablet",
-        "SSD","Roteador"
+        "Notebook Samsung", "Monitor LG", "Teclado Logitech", "Mouse Razer",
+        "Headset HyperX", "Webcam Logitech", "Notebook Dell", "Monitor Samsung",
+        "Mouse Logitech", "Teclado Redragon", "Impressora Epson", "Tablet Samsung",
+        "Celular Motorola", "Microfone Fifine", "Caixa de Som JBL",
+        "SSD Kingston", "HD Externo Seagate", "Pen Drive SanDisk", "Roteador TP-Link", "Switch Intelbras",
+        "Notebook Lenovo", "Monitor AOC", "Mouse Corsair", "Teclado HyperX",
+        "Headset Razer", "Webcam Microsoft", "Impressora HP", "Tablet Lenovo",
+        "SSD Crucial", "Roteador Intelbras"
     ],
-
     "Categoria": [
         "Computador","Monitor","Periférico","Periférico",
         "Áudio","Câmera","Computador","Monitor",

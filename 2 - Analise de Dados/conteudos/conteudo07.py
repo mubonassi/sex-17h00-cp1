@@ -1,13 +1,37 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def grafPizza(tabela):
+    cores = ["purple","pink","red","orange","yellow"]
+    destaques = []
+    campo = input("> Digite o nome do campo para realizar o relatório: ")
+    if campo in ["Quantidade","Valor"]:
+        #pesquisa = tabela.head(5)
+        pesquisa = tabela.nlargest(5,campo)
+        maiorValor = pesquisa[campo].max()
+        
+        for prod in pesquisa[campo]:
+            if prod == maiorValor:
+                destaques.append(0.2)
+            else:
+                destaques.append(0)
+        
+        plt.pie(pesquisa[campo],labels=pesquisa["Produto"],colors=cores,explode=destaques)
+        plt.title(f"{campo} dos Produtos")
+        
+        plt.show()
+        
+
 def grafLinhas(tabela):
     campo = input("> Digite o nome do campo para realizar o relatório: ")
     if campo in ["Quantidade","Valor"]:
-        plt.plot(tabela.index, tabela[campo], color="pink",linewidth=3,linestyle="-")
+        plt.plot(tabela["Produto"], tabela[campo], color="pink",linewidth=3,linestyle="-",marker="*", markersize=15,markerfacecolor="red",markeredgecolor="pink")
         plt.title(f"{campo} dos Produtos")
         plt.xlabel("Registros")
         plt.ylabel(campo)
+        plt.xticks(rotation=90)
+
+        plt.tight_layout()
         
         plt.show()
 
@@ -31,14 +55,33 @@ def grafBarra(tabela):
         
         plt.show()
 
+def filtrar():
+    try:
+        filtro = input("> Digite se a pesquisa será de valor maior '>' ou menor '<': ")
+        campo = input("> Digite qual o campo para realizar a pesquisa: ")
+        valor = int(input("> Digite o valor da pesquisa: "))
+        
+        if filtro in [">","<"] and campo in ["Quantidade","Valor"] and valor > 0:
+            if filtro == ">":
+                pesquisa = tabela[tabela[campo] >= valor]
+            else:
+                pesquisa = tabela[tabela[campo] <= valor]
+            return pesquisa
+        else:
+            print("ERRO: Não sei o que, mas conserta aí. Boa sorte.")
+            return False
+    except:
+        print("ERRO: Algo cabuloso. Não sei. Mas impedi de dar zika.")
+        return False
+
 #Lendo o arquivo e manipulando
 tabela = pd.read_csv("dados/produtos.csv")
 
 while True:
     print("-- Relatório Geral --")
-    print("1) Gráfico de Barras; 2) Gráfico de Linhas")
+    print("1) Gráfico de Barras; 2) Gráfico de Linhas 3) Gráfico de Pizza")
     print("-- Relatório Especifico --")
-    print("1.5) Gráfico de Barras")
+    print("1.5) Gráfico de Barras 2.5) Gráfico de Linhas")
     print("0) Sair")
     
     escolha = input(">> Digite aqui a opção: ")
@@ -47,23 +90,17 @@ while True:
         case "1":
             grafBarra(tabela)
         case "1.5":
-            try:
-                filtro = input("> Digite se a pesquisa será de valor maior '>' ou menor '<': ")
-                campo = input("> Digite qual o campo para realizar a pesquisa: ")
-                valor = int(input("> Digite o valor da pesquisa: "))
-                
-                if filtro in [">","<"] and campo in ["Quantidade","Valor"] and valor > 0:
-                    if filtro == ">":
-                        pesquisa = tabela[tabela[campo] >= valor]
-                    else:
-                        pesquisa = tabela[tabela[campo] <= valor]
-                    grafBarra(pesquisa)
-                else:
-                    print("ERRO: Não sei o que, mas conserta aí. Boa sorte.")
-            except:
-                print("ERRO: Algo cabuloso. Não sei. Mas impedi de dar zika.")
+            pesquisa = filtrar()
+            if pesquisa is not False:
+                grafBarra(pesquisa)
         case "2":
             grafLinhas(tabela)
+        case "2.5":
+            pesquisa = filtrar()
+            if pesquisa is not False:
+                grafLinhas(pesquisa)
+        case "3":
+            grafPizza(tabela)
         case "0":
             break
         case _:
