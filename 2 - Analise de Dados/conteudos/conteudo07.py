@@ -20,7 +20,6 @@ def grafPizza(tabela):
         plt.title(f"{campo} dos Produtos")
         
         plt.show()
-        
 
 def grafLinhas(tabela):
     campo = input("> Digite o nome do campo para realizar o relatório: ")
@@ -79,9 +78,11 @@ tabela = pd.read_csv("dados/produtos.csv")
 
 while True:
     print("-- Relatório Geral --")
-    print("1) Gráfico de Barras; 2) Gráfico de Linhas 3) Gráfico de Pizza")
+    print("1) Gráfico de Barras; 2) Gráfico de Linhas 3) Gráfico de Pizza 4) Group By")
     print("-- Relatório Especifico --")
-    print("1.5) Gráfico de Barras 2.5) Gráfico de Linhas")
+    print("1.5) Gráfico de Barras 2.5) Gráfico de Linhas 3.5) Gráfico de Pizza")
+    print("-- Gráfico com Group By --")
+    print("4.1) Gráfico de Barras 4.2) Gráfico de Linhas 4.3) Gráfico de Pizza ")
     print("0) Sair")
     
     escolha = input(">> Digite aqui a opção: ")
@@ -101,6 +102,18 @@ while True:
                 grafLinhas(pesquisa)
         case "3":
             grafPizza(tabela)
+        case "3.5":
+            pesquisa = filtrar()
+            if pesquisa is not False:
+                grafPizza(tabela)
+        case "4":
+            relatorio = tabela.groupby("Categoria")["Quantidade"].sum() #Sum -> Soma
+            print("- Total de Estoque por Categoria -")
+            print(relatorio)
+            
+            relatorio = tabela.groupby("Categoria")["Valor"].mean() #Mean -> Média
+            print("- Média de Valor por Categoria -")
+            print(relatorio)
         case "0":
             break
         case _:
