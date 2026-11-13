@@ -21,38 +21,56 @@ def grafPizza(tabela):
         
         plt.show()
 
-def grafLinhas(tabela):
-    campo = input("> Digite o nome do campo para realizar o relatório: ")
-    if campo in ["Quantidade","Valor"]:
-        plt.plot(tabela["Produto"], tabela[campo], color="pink",linewidth=3,linestyle="-",marker="*", markersize=15,markerfacecolor="red",markeredgecolor="pink")
-        plt.title(f"{campo} dos Produtos")
-        plt.xlabel("Registros")
-        plt.ylabel(campo)
-        plt.xticks(rotation=90)
+def grafLinhas(tabela, agrupado=False):
+    if agrupado:
+        x = tabela.index
+        y = tabela.values
+        campo = tabela.name
+    else:
+        campo = input("> Digite o nome do campo para realizar o relatório: ")
+        if campo in ["Quantidade","Valor"]:
+            x = tabela["Produto"]
+            y = tabela[campo]
+        else:
+            return
+    plt.plot(x, y, color="pink",linewidth=3,linestyle="-",marker="*", markersize=15,markerfacecolor="red",markeredgecolor="pink")
+    plt.title(f"{campo} dos Produtos")
+    plt.xlabel("Registros")
+    plt.ylabel(campo)
+    plt.xticks(rotation=90)
 
-        plt.tight_layout()
-        
-        plt.show()
+    plt.tight_layout()
+    
+    plt.show()
 
-def grafBarra(tabela):
-    campo = input("> Digite o nome do campo para realizar o relatório: ")
-    if campo in ["Quantidade","Valor"]:
-        plt.figure(figsize=(12,6)) #media em polegadas o x y
-        relatorio = plt.bar(tabela["Produto"],tabela[campo],color="purple",width=0.5,edgecolor="black",linewidth=2)
-        
-        plt.grid(True)
-        plt.grid(axis="y",color="red",linestyle="-")
-        plt.grid(axis="x",linestyle="none")
-        
-        plt.title(f"{campo} de Produtos")
-        plt.xlabel("Produtos")
-        plt.ylabel(campo)
-        plt.xticks(rotation=45)
-        plt.tight_layout()
-        
-        plt.bar_label(relatorio, padding=3)
-        
-        plt.show()
+def grafBarra(tabela, agrupado=False):
+    if agrupado:
+        x = tabela.index
+        y = tabela.values
+        campo = tabela.name
+    else:
+        campo = input("> Digite o nome do campo para realizar o relatório: ")
+        if campo in ["Quantidade","Valor"]:
+            x = tabela["Produto"]
+            y = tabela[campo]
+        else:
+            return
+    plt.figure(figsize=(12,6)) #media em polegadas o x y
+    relatorio = plt.bar(x,y,color="purple",width=0.5,edgecolor="black",linewidth=2)
+    
+    plt.grid(True)
+    plt.grid(axis="y",color="red",linestyle="-")
+    plt.grid(axis="x",linestyle="none")
+    
+    plt.title(f"{campo} de Produtos")
+    plt.xlabel("Produtos")
+    plt.ylabel(campo)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    
+    plt.bar_label(relatorio, padding=3)
+    
+    plt.show()
 
 def filtrar():
     try:
@@ -72,6 +90,16 @@ def filtrar():
     except:
         print("ERRO: Algo cabuloso. Não sei. Mas impedi de dar zika.")
         return False
+def agrupar():
+    escolha = input("> Digite se deseja por 'soma' (de quantidade) ou por 'média' (preço): ")
+    if escolha == 'soma':
+        relatorio = tabela.groupby("Categoria")["Quantidade"].sum() #Sum -> Soma
+    elif escolha == 'média':
+        relatorio = tabela.groupby("Categoria")["Valor"].mean() #Mean -> Média
+    else:
+        print("Escolha uma das opções corretas!")
+        return False
+    return relatorio
 
 #Lendo o arquivo e manipulando
 tabela = pd.read_csv("dados/produtos.csv")
@@ -107,13 +135,13 @@ while True:
             if pesquisa is not False:
                 grafPizza(tabela)
         case "4":
-            relatorio = tabela.groupby("Categoria")["Quantidade"].sum() #Sum -> Soma
-            print("- Total de Estoque por Categoria -")
-            print(relatorio)
-            
-            relatorio = tabela.groupby("Categoria")["Valor"].mean() #Mean -> Média
-            print("- Média de Valor por Categoria -")
-            print(relatorio)
+            relatorio = agrupar()
+            if relatorio is not False:
+                print(relatorio)
+        case "4.1":
+            relatorio = agrupar()
+            if relatorio is not False:
+                grafBarra(relatorio, True)
         case "0":
             break
         case _:
