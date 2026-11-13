@@ -1,25 +1,36 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def grafPizza(tabela):
+def grafPizza(tabela, agrupado=False):
     cores = ["purple","pink","red","orange","yellow"]
+    
+    if agrupado:
+        x = tabela.index
+        y = tabela.values
+        campo = tabela.name
+    else:
+        campo = input("> Digite o nome do campo para realizar o relatório: ")
+        if campo in ["Quantidade","Valor"]:
+            x = tabela["Produto"]
+            y = tabela[campo]
+            pesquisa = tabela.nlargest(5,campo)
+        else:
+            return
+    #pesquisa = tabela.head(5)
+    
+    maiorValor = y.max()
     destaques = []
-    campo = input("> Digite o nome do campo para realizar o relatório: ")
-    if campo in ["Quantidade","Valor"]:
-        #pesquisa = tabela.head(5)
-        pesquisa = tabela.nlargest(5,campo)
-        maiorValor = pesquisa[campo].max()
-        
-        for prod in pesquisa[campo]:
-            if prod == maiorValor:
-                destaques.append(0.2)
-            else:
-                destaques.append(0)
-        
-        plt.pie(pesquisa[campo],labels=pesquisa["Produto"],colors=cores,explode=destaques)
-        plt.title(f"{campo} dos Produtos")
-        
-        plt.show()
+    
+    for prod in y:
+        if prod == maiorValor:
+            destaques.append(0.2)
+        else:
+            destaques.append(0)
+    
+    plt.pie(y,labels=x,colors=cores,explode=destaques)
+    plt.title(f"{campo} dos Produtos")
+    
+    plt.show()
 
 def grafLinhas(tabela, agrupado=False):
     if agrupado:
@@ -90,6 +101,7 @@ def filtrar():
     except:
         print("ERRO: Algo cabuloso. Não sei. Mas impedi de dar zika.")
         return False
+
 def agrupar():
     escolha = input("> Digite se deseja por 'soma' (de quantidade) ou por 'média' (preço): ")
     if escolha == 'soma':
@@ -142,6 +154,14 @@ while True:
             relatorio = agrupar()
             if relatorio is not False:
                 grafBarra(relatorio, True)
+        case "4.2":
+            relatorio = agrupar()
+            if relatorio is not False:
+                grafLinhas(relatorio, True)
+        case "4.3":
+            relatorio = agrupar()
+            if relatorio is not False:
+                grafPizza(relatorio, True)
         case "0":
             break
         case _:
